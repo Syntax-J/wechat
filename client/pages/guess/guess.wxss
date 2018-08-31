@@ -1,0 +1,151 @@
+/* pages/guess/guess.wxss */
+.container {
+}
+.main-title{
+  position: absolute;
+  top: 60rpx;
+  font-size: 34rpx;
+  color: white;
+}
+.half{
+  display: flex;
+  flex:1;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 128rpx;
+  width: 100%;
+}
+
+.banner{
+  width: 669.2rpx;
+  height: 289.2rpx;
+  min-height: 289.2rpx;
+}
+
+.rules{
+  min-height: 206rpx;
+  width: 660rpx; 
+}
+.words{
+  margin-top: 13rpx;
+  letter-spacing: 0.16rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+  color:white;
+  text-align: justify;
+}
+.rules-title{
+  font-size: 26rpx;
+  color: white;
+  margin-bottom: 18rpx;
+}
+.main-content{
+  display: flex;
+  flex:1;
+  width: 696rpx;
+  flex-direction: column;
+  margin-top: -70rpx;
+}
+.choices{
+  display: flex;
+  justify-content: space-around;
+  align-items:center;
+  min-height: 140rpx;
+}
+.play-title-block{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140rpx;
+  color: white;
+  font-size: 24rpx;
+  background: #235272;
+  letter-spacing: 0.14rpx;
+}
+.active{
+  background: rgba(35, 82, 114, 0.69);
+}
+.pics{
+  height: 87.2rpx;
+  width: 104rpx;
+}
+.content{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background:rgba(35, 82, 114, 0.69);
+}
+.btn{
+  text-align: center;
+  color: white;
+  line-height: 60rpx;
+  height: 60rpx;
+  width: 180rpx;
+  background:#153049;
+  border-radius: 12rpx;
+  font-size: 29rpx;
+
+}
+.info-img{
+  height: 29.4rpx;
+  width: 28rpx;
+  position: relative;
+  top: 4rpx;
+  left: 7rpx;
+}
+.btn-box{
+display: flex;
+justify-content: space-around;
+align-items: center;
+
+}
+.game-box{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+.border{
+  border-bottom: 2rpx solid #102B44;
+}
+.titles{
+  height: 46rpx;
+  width:188rpx;
+}
+@media screen and (min-height: 689px)and (max-height: 975px) { 
+  .main-content{
+    margin-top: -120rpx;
+  }
+  .main-title{
+  top: 110rpx;
+  }
+  .half{
+    margin-top: 180rpx;
+  }
+  .words{
+    line-height: 36rpx;
+  }
+}
+@media screen and (min-height: 975px) {
+  .half{
+    margin-top: 50rpx;
+  }
+  .main-content{
+    margin-top: 50rpx;
+  }
+   .main-title{
+     display: none;
+  }
+  .rules-title{
+  font-size: 26rpx;
+  color: white;
+  margin-bottom: 8rpx
+  }
+  .words{
+    line-height: 24rpx;
+  }
+}

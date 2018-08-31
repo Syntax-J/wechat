@@ -1,0 +1,68 @@
+<!--pages/guess/guess.wxml-->
+<view class="container">
+<!-- <view class='main-title'>一起猜涨跌</view> -->
+  <image class='background-image' src='../static/img/Home_bg.png'></image>
+  <view class='half'>
+    <image class='banner' src='../static/img/Home_banner.png'></image>
+    <view class='rules'>
+      <view class='rules-title'>规则介绍:</view>
+      <view class='words'>{{rule1}}</view>
+      <view class='words'>{{rule2}}</view>
+    </view>
+  </view>
+  <view class='main-content'>
+    <view class='choices'>
+      <view class='play-title-block {{_num==index ? "active" : ""}}' id="play-title-{{index}}" data-index="{{index}}" bindtap="selectTab" wx:for="{{coinArrays}}" wx:key="index">
+        <image class='pics' src='{{item.url}}' mode="aspectFit"></image>
+        <text>{{item.msg}}</text>
+      </view>
+    </view>
+    <view class='content'>
+      <view class='game-box border'>
+        <image class='titles' src='../static/img/title1.png' mode='aspectFit'></image>
+        <view class='btn'>
+          <text>涨</text>
+          <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
+      </view>
+        <view class='btn'>
+          <text>跌</text>
+          <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
+        </view>
+      </view>
+      <view class='game-box'>
+        <image class='titles' src='../static/img/title2.png' mode='aspectFit'></image>
+        <view class='btn'>
+          <text>涨</text>
+          <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
+        </view>
+        <view class='btn'>
+          <text>跌</text>
+          <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
+        </view>
+        </view>
+  </view>
+ </view>
+ <!-- <view class='play-title-wrap'>
+    
+      <text class='play-title {{_num==index ? "selected-title" : ""}}' id="play-title-{{index}}" data-index="{{index}}" bindtap="selectTab">{{item.msg}}</text>
+    </view>
+  </view>
+  <view class='select-wrap' wx:key="num">
+    <view class='day-selcet-wrap'>
+      <text class='select-title'>趋势英雄</text>
+      <view class='select-btn-wrap'>
+        <button class='up-btn' data-cls="up" data-method="min" bindtap="selectUp">涨</button>
+        <button class='down-btn' data-cls="down" data-method="min" bindtap="selectDown">跌</button>
+      </view>
+    </view>
+    <view class='min-selcet-wrap'>
+      <text class='select-title'>图表专家</text>
+      <view class='select-btn-wrap'>
+        <button class='up-btn' data-cls="up" data-method="day" bindtap="selectUp">涨</button>
+        <button class='down-btn' data-cls="down" data-method="day" bindtap="selectDown">跌</button>
+      </view>
+    </view>
+    <text class='select-desc'>注: 趋势英雄:每天仅限一次机会猜测涨跌</text>
+    <text class='select-desc'> 图表专家: 每5分钟一次机会猜测涨跌</text>
+  </view> -->
+</view>

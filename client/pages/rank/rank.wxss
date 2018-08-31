@@ -1,0 +1,18 @@
+/* pages/rank/rank.wxss */
+.text-box{
+  width:100%;
+  /* background: pink; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-height: 150rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.rank-image{
+  margin-right: 0;
+  left: 150rpx;
+  width:75rpx;
+}
+.rotate{
+  transform:rotate(-30deg);
+}

@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/guess/guess",
+    "pages/rule/rule",
+    "pages/rank/rank"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "一起猜涨跌",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color":"#ffffff",
+    "backgroundColor":"#051930",
+    "borderStyle":"black",
+    "selectedColor": "#A7E5F7",
+    "list": [{
+      "pagePath": "pages/guess/guess",
+      "text": "猜涨跌",
+      "iconPath": "pages/static/img/guess.png",
+      "selectedIconPath": "pages/static/img/guessSelected.png"
+    },
+    {
+      "pagePath": "pages/rank/rank",
+      "text": "排行榜",
+      "iconPath": "pages/static/img/rank.png",
+      "selectedIconPath": "pages/static/img/rankSelected.png"
+    },
+    {
+    "pagePath": "pages/rule/rule",
+    "text": "我的",
+    "iconPath": "pages/static/img/user.png",
+    "selectedIconPath": "pages/static/img/userSelected.png"
+    }
+    ]
+  }
+}

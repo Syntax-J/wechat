@@ -1,0 +1,5 @@
+<!--pages/rank/rank.wxml-->
+<view class='container'>
+ <image class='background-image' src='../static/img/Home_bg.png'></image>
+
+</view>
