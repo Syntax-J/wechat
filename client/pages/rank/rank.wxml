@@ -1,5 +1,31 @@
-<!--pages/rank/rank.wxml-->
-<view class='container'>
- <image class='background-image' src='../static/img/Home_bg.png'></image>
-
+<!--pages/guess/rank.wxml-->
+<view class="container">
+<!-- <view class='main-title'>一起猜涨跌</view> -->
+  <image class='background-image' src='../static/img/Home_bg.png'></image>
+  <view class='half'>
+    <image class='banner' src='../static/img/rankImg/banner.png'></image>
+  </view>
+  <view class='main-content'>
+    <view class='content'>
+      <view class='rank-box' wx:for="{{rankArrays}}" wx:key="index">
+        <image wx:if="{{index==0}}" class='levels' src='../static/img/rankImg/gold.png' mode='aspectFit'></image>
+        <image wx:if="{{index==1}}" class='levels' src='../static/img/rankImg/silver.png' mode='aspectFit'></image>
+        <image wx:if="{{index==2}}" class='levels' src='../static/img/rankImg/copper.png' mode='aspectFit'></image>
+        <view class='levels-num' wx:if="{{index>2}}">{{index+1}}</view>
+        <view class='avatar'>
+          <image class='avatar-img' src="{{item.avatarUrl}}" mode='aspectFit'></image>
+          <image class='avatar-wrap' src="../static/img/rankImg/border.png" mode='aspectFit'></image>
+        </view>
+          <view class='user-details'>
+            <view class='user-name'>{{item.userId}}</view>
+            <view class='user-rank' wx:if="{{index==0}}">段位A</view>
+            <view class='user-rank' wx:if="{{index==1}}">段位B</view>
+            <view class='user-rank' wx:if="{{index==2}}">段位C</view>
+            <view class='user-rank' wx:if="{{index>2}}">段位D</view>
+          </view>
+          <view class='user-combos'>连续猜中{{item.combo}}次</view>
+          <view class='border'></view>
+      </view>
+  </view>
+ </view>
 </view>

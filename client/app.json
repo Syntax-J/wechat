@@ -1,8 +1,9 @@
 {
   "pages": [
+      "pages/rank/rank",
     "pages/guess/guess",
-    "pages/rule/rule",
-    "pages/rank/rank"
+    "pages/rule/rule"
+  
   ],
   "window": {
     "navigationStyle": "custom",

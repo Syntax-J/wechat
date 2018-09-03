@@ -8,57 +8,49 @@ Page({
     rankArrays: [
       {
         userId: "people1",
-        combo: 7,
+        combo: 17,
+        avatarUrl:'http://ww1.sinaimg.cn/large/71d1678cgw1elwrspnlicj20go0goq4a.jpg'
       },
       {
-        userId: "people2",
-        combo: 7,
+        userId: "people1",
+        combo: 10,
+        avatarUrl: 'http://imgtu.5011.net/uploads/content/20170209/4934501486627131.jpg'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'http://p1.qqyou.com/touxiang/uploadpic/2013-10/6/2013100615495759500.jpg'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
-        userId: "people3",
+        userId: "people1",
         combo: 7,
+        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
-      {
-        userId: "people3",
-        combo: 7,
-      },
-      {
-        userId: "people3",
-        combo: 7,
-      },
-      {
-        userId: "people3",
-        combo: 7,
-      },
-      {
-        userId: "people3",
-        combo: 7,
-      },
-      
     ]
   },
 
