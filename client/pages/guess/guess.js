@@ -353,7 +353,7 @@ log(){
     const dataset=e.currentTarget.dataset;
     const data = JSON.parse(dataset.type)
     console.log(data)
-    switch (this.data.variety){
+    switch (this.data._num){
       case 0:
         console.log('btc');
         this.selectThen(data.time,data.type)
@@ -372,9 +372,9 @@ log(){
     switch (time){
       case "day":
         console.log("day");
-        let dayTemp=`modalArrays[${this.data._num}].dayModal`;
+        let dayTemp=`modalArrays[${this.data._num}].dayModal`;//变量作为json key
         this.setData({
-          [dayTemp]:true
+         [dayTemp]:true
         })
         //------获取人数------
         // let nums = `modalArrays[${this.data._num}].dayUpNum`;

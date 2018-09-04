@@ -8,47 +8,47 @@ Page({
     rankArrays: [
       {
         userId: "USER_NAME",
-        combo: 17,
+        combo: 21,
         avatarUrl:'http://ww1.sinaimg.cn/large/71d1678cgw1elwrspnlicj20go0goq4a.jpg'
       },
       {
         userId: "USER_NAME",
-        combo: 10,
+        combo: 20,
         avatarUrl: 'http://imgtu.5011.net/uploads/content/20170209/4934501486627131.jpg'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 16,
         avatarUrl: 'http://p1.qqyou.com/touxiang/uploadpic/2013-10/6/2013100615495759500.jpg'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 15,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 11,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 10,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 6,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 5,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
       {
         userId: "USER_NAME",
-        combo: 7,
+        combo: 3,
         avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
       },
     ]
