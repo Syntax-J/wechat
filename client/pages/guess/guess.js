@@ -14,7 +14,7 @@ Page({
         url: "../static/img/0.png"
       },
       {
-        msg: "子弹",
+        msg: "以太",
         url: "../static/img/1.png"
       },
       {
@@ -22,6 +22,32 @@ Page({
         url: "../static/img/2.png"
       },
     ],
+    modalArrays:[{
+      //0:大饼
+      dayModal:false,
+      dayUpNum:1,
+      dayDownNum:2,
+      minModal: false,
+      minUpNum: 3,
+      minDownNum: 4
+    },
+    {
+      //1: 以太
+      dayModal: false,
+      dayUpNum: 5,
+      dayDownNum: 6,
+      minModal: false,
+      minUpNum: 7,
+      minDownNum: 8
+    },
+    { //3:柚子
+      dayModal: false,
+      dayUpNum: 9,
+      dayDownNum: 10,
+      minModal: false,
+      minUpNum: 11,
+      minDownNum: 12
+    }],
     rule1: '本活动由Hero Node发起，共有趋势英雄和图表专家两种方式，猜中1次得5HER，连续猜中5次得500HER，连续猜中10次得50000HER。',
     rule2: '趋势英雄每天仅限一次机会猜测涨跌，图表专家每5分钟一次机会猜测涨跌。',
     userInfo: {
@@ -32,7 +58,8 @@ Page({
     requestResult: '',
     _num: 0,
     variety: 0,
-    gamePlay: 0
+    gamePlay: 0,
+    btnHideDay:false,
   },
 
   /**
@@ -41,12 +68,14 @@ Page({
   onLoad: function(options) {
 
   },
-
+log(){
+  console.log(1)
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    // this.bindGetUserInfo()
+      // this.bindGetUserInfo()
     // // 初始化录入当前用户信息
     // this.sertUserInfo()
     wx.getSystemInfo({
@@ -111,11 +140,23 @@ Page({
             userInfo: res,
             logged: true
           })
+          wx.hideLoading()
           util.showSuccess('登录成功')
         },
         fail: err => {
           console.error(err)
-          util.showModel('登录错误', err.message)
+          let that = this;
+          wx.hideLoading()
+          wx.showModal({
+            title: '登陆失败',
+            content: '请确认网络状态,单击确认按钮重试',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                that.bindGetUserInfo();
+              }
+            }
+          })
         }
       })
     } else {
@@ -130,11 +171,26 @@ Page({
             userInfo: res,
             logged: true
           })
+          wx.hideLoading()
           util.showSuccess('登录成功')
         },
         fail: err => {
           console.error(err)
-          util.showModel('登录错误', err.message)
+          let that=this;
+          // util.showModel('登录错误','请确认网络状态,单击确认按钮重试')
+
+          // wx.showToast();
+          wx.hideLoading()
+          wx.showModal({
+            title: '登陆失败',
+            content: '请确认网络状态,单击确认按钮重试',
+            showCancel:false,
+            success: function (res) {
+              if (res.confirm) {
+                that.bindGetUserInfo();
+              }
+            }
+          })
         }
       })
     }
@@ -289,5 +345,78 @@ Page({
         console.log(res)
       }
     })
+  },
+  select(e) {
+    // this.setData({
+    //   maskShow: !this.data.maskShow
+    // })
+    const dataset=e.currentTarget.dataset;
+    const data = JSON.parse(dataset.type)
+    console.log(data)
+    switch (this.data.variety){
+      case 0:
+        console.log('btc');
+        this.selectThen(data.time,data.type)
+        break;
+      case 1:
+        console.log('eth');
+        this.selectThen(data.time, data.type)
+        break;
+      case 2:
+        console.log('eos');
+        this.selectThen(data.time, data.type)
+        break;
+    }
+  },
+  selectThen(time,types){
+    switch (time){
+      case "day":
+        console.log("day");
+        let dayTemp=`modalArrays[${this.data._num}].dayModal`;
+        this.setData({
+          [dayTemp]:true
+        })
+        //------获取人数------
+        // let nums = `modalArrays[${this.data._num}].dayUpNum`;
+        // let that =this;
+        // wx.request({
+        //   url: '',
+        //   method: 'GET',
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   success: function(res) {
+        //     let data=res.data.result[0].time
+        //     console.log()
+        //     that.setData({
+        //       [nums]: data-1536046080000
+        //     })
+        //     },
+        // })
+        //------获取人数------
+        switch(types){
+          case "up":
+            console.log("up");
+            break;
+          case "down":
+            console.log("down")
+            break;
+        }
+      break;
+      case "min":
+        console.log("min");
+        let minTemp = `modalArrays[${this.data._num}].minModal`;
+        this.setData({
+          [minTemp]: true
+        })
+        switch (types) {
+          case "up":
+            console.log("up");
+            break;
+          case "down":
+            console.log("down")
+            break;
+        }
+      break;      
+    }
   }
 })
