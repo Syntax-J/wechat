@@ -2,9 +2,8 @@
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util.js')
-
+var app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -22,67 +21,128 @@ Page({
         url: "../static/img/2.png"
       },
     ],
-    modalArrays:[{
-      //0:大饼
-      dayModal:false,
-      dayUpNum:1,
-      dayDownNum:2,
-      minModal: false,
-      minUpNum: 3,
-      minDownNum: 4
-    },
-    {
-      //1: 以太
-      dayModal: false,
-      dayUpNum: 5,
-      dayDownNum: 6,
-      minModal: false,
-      minUpNum: 7,
-      minDownNum: 8
-    },
-    { //3:柚子
-      dayModal: false,
-      dayUpNum: 9,
-      dayDownNum: 10,
-      minModal: false,
-      minUpNum: 11,
-      minDownNum: 12
-    }],
+    /**
+     * @modalArrays:页面状态
+     */
+    modalArrays: [{
+        //0:大饼
+        dayModal: false,
+        dayUpNum: 0,
+        dayDownNum: 0,
+        dayChoice: -1,
+        minChoice: -1,
+        minModal: false,
+        minUpNum: 0,
+        minDownNum: 0
+      },
+      {
+        //1: 以太
+        dayModal: false,
+        dayUpNum: 0,
+        dayDownNum: 0,
+        dayChoice: -1,
+        minChoice: -1,
+        minModal: false,
+        minUpNum: 0,
+        minDownNum: 0
+      },
+      { //3:柚子
+        dayModal: false,
+        dayUpNum: 0,
+        dayDownNum: 0,
+        dayChoice: -1,
+        minChoice: -1,
+        minModal: false,
+        minUpNum: 0,
+        minDownNum: 0
+      }
+    ],
+    /**
+     * @rules:规则文本
+     */
     rule1: '本活动由Hero Node发起，共有趋势英雄和图表专家两种方式，猜中1次得5HER，连续猜中5次得500HER，连续猜中10次得50000HER。',
     rule2: '趋势英雄每天仅限一次机会猜测涨跌，图表专家每5分钟一次机会猜测涨跌。',
     userInfo: {
       nickName: "请登录"
     },
-    logged: false,
-    takeSession: false,
-    requestResult: '',
+    /**
+     * @logged:是否登陆
+     */
+    // takeSession: false,
+    // requestResult: '',
+    /**
+     * @_num:当前选择的种类
+     */
     _num: 0,
-    variety: 0,
-    gamePlay: 0,
-    btnHideDay:false,
+    // variety: 0,
+    // gamePlay: 0,
   },
-
+  /**
+   * @storage:状态同步本地storage
+   */
+  storage() {
+    wx.setStorage({
+      key: "modalArrays",
+      data: JSON.stringify(this.data.modalArrays)
+    })
+  },
+  init() {
+    /**
+     * 初始化/获取页面状态
+     */
+    let that = this;
+    let str0 = `modalArrays[0]`;
+    let str1 = `modalArrays[1]`;
+    let str2 = `modalArrays[2]`;
+    wx.getStorageInfo({
+      success: function(res) {
+        console.log(res.keys)
+        console.log(res.currentSize)
+        console.log(res.limitSize)
+        console.log(res)
+      }
+    })
+    wx.getStorage({
+      key: 'modalArrays',
+      success: function(res) {
+        console.log(JSON.parse(res.data)[0])
+        that.setData({
+          [str0]: JSON.parse(res.data)[0],
+          [str1]: JSON.parse(res.data)[1],
+          [str2]: JSON.parse(res.data)[2]
+        })
+      },
+      fail: function(res) {
+        wx.setStorage({
+          key: "modalArrays",
+          data: JSON.stringify(that.data.modalArrays)
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
-  },
-log(){
-  console.log(1)
-},
+  onLoad: function(options) {},
+  // log(){
+  //   console.log(1)
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-      // this.bindGetUserInfo()
+    // this.init()
+    //this.bindGetUserInfo()
     // // 初始化录入当前用户信息
     // this.sertUserInfo()
-    wx.getSystemInfo({
-      success: function(res) {
-        console.log(res.windowHeight)
-      }
-    })
+    // wx.getSystemInfo({
+    //   success: function(res) {
+    //     console.log(res.windowHeight)
+    //   }
+    // })
+    /**
+     * 初始化/获取页面状态
+     */
   },
 
   /**
@@ -98,50 +158,40 @@ log(){
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
-
-  },
+  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
-  },
-
+  onReachBottom: function() {},
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
-  },
+  onShareAppMessage: function() {},
   // 用户登录示例
   bindGetUserInfo: function() {
-    if (this.data.logged) return
-
+    if (app.globalData.logged) return
     util.showBusy('正在登录')
-
     const session = qcloud.Session.get()
-
     if (!session) {
       // 首次登录
       qcloud.login({
         success: res => {
+          let that = this;
           console.log(res)
           wx.setStorageSync("userInfo", res)
           this.setData({
             userInfo: res,
-            logged: true
           })
+           app.globalData.logged = true;
           wx.hideLoading()
           util.showSuccess('登录成功')
+          that.init();
         },
         fail: err => {
           console.error(err)
@@ -151,7 +201,7 @@ log(){
             title: '登陆失败',
             content: '请确认网络状态,单击确认按钮重试',
             showCancel: false,
-            success: function (res) {
+            success: function(res) {
               if (res.confirm) {
                 that.bindGetUserInfo();
               }
@@ -165,27 +215,26 @@ log(){
       // 可使用本函数更新登录态
       qcloud.loginWithCode({
         success: res => {
+          let that = this;
           console.log(res)
           wx.setStorageSync("userInfo", res)
           this.setData({
             userInfo: res,
-            logged: true
           })
+          app.globalData.logged = true;
           wx.hideLoading()
           util.showSuccess('登录成功')
+          that.init();
         },
         fail: err => {
           console.error(err)
-          let that=this;
-          // util.showModel('登录错误','请确认网络状态,单击确认按钮重试')
-
-          // wx.showToast();
+          let that = this;
           wx.hideLoading()
           wx.showModal({
             title: '登陆失败',
             content: '请确认网络状态,单击确认按钮重试',
-            showCancel:false,
-            success: function (res) {
+            showCancel: false,
+            success: function(res) {
               if (res.confirm) {
                 that.bindGetUserInfo();
               }
@@ -197,40 +246,41 @@ log(){
   },
 
   // 切换是否带有登录态
-  switchRequestMode: function(e) {
-    this.setData({
-      takeSession: e.detail.value
-    })
-    this.doRequest()
-  },
+  // switchRequestMode: function(e) {
+  //   this.setData({
+  //     takeSession: e.detail.value
+  //   })
+  //   this.doRequest()
+  // },
 
-  doRequest: function() {
-    util.showBusy('请求中...')
-    var that = this
-    var options = {
-      url: config.service.requestUrl,
-      login: true,
-      success(result) {
-        util.showSuccess('请求成功完成')
-        console.log('request success', result)
-        that.setData({
-          requestResult: JSON.stringify(result.data)
-        })
-      },
-      fail(error) {
-        util.showModel('请求失败', error);
-        console.log('request fail', error);
-      }
-    }
-    if (this.data.takeSession) { // 使用 qcloud.request 带登录态登录
-      qcloud.request(options)
-    } else { // 使用 wx.request 则不带登录态
-      wx.request(options)
-    }
-  },
+  // doRequest: function() {
+  //   util.showBusy('请求中...')
+  //   var that = this
+  //   var options = {
+  //     url: config.service.requestUrl,
+  //     login: true,
+  //     success(result) {
+  //       util.showSuccess('请求成功完成')
+  //       console.log('request success', result)
+  //       that.setData({
+  //         requestResult: JSON.stringify(result.data)
+  //       })
+  //     },
+  //     fail(error) {
+  //       util.showModel('请求失败', error);
+  //       console.log('request fail', error);
+  //     }
+  //   }
+  //   if (this.data.takeSession) { // 使用 qcloud.request 带登录态登录
+  //     qcloud.request(options)
+  //   } else { // 使用 wx.request 则不带登录态
+  //     wx.request(options)
+  //   }
+  // },
 
   // 选择种类
   selectTab: function(e) {
+    if (!app.globalData.logged) return
     let idx = e.currentTarget.dataset.index;
     this.setData({
       _num: e.currentTarget.dataset.index,
@@ -239,94 +289,38 @@ log(){
     console.log("当前种类：" + this.data.variety);
   },
 
-  // select up or down events
-  selectItem: function(dt) {
-    let kind = "";
-    let method = "";
-    if (dt.cls == "up") {
-      kind = 1
-    } else {
-      kind = 0
-    }
-    if (dt.method == "day") {
-      method = 1,
-        this.setData({
-          gamePlay: 1
-        })
-    } else {
-      method = 0,
-        this.setData({
-          gamePlay: 0
-        })
-    }
-    let idx = this.data.variety;
-    let tip = "大饼";
-    switch (idx) {
-      case 0:
-        tip = "大饼";
-        console.log("大饼");
-        break;
-      case 1:
-        tip = "子弹";
-        console.log("子弹");
-        break;
-      case 2:
-        tip = "柚子";
-        console.log("柚子");
-        break;
-    }
-    wx.showModal({
-      title: '提示',
-      content: `您确定选择${tip + kind}？`,
-      success: function(res) {
-        if (res.confirm) {
-          // 接口数据处理
-          console.log('用户选择了' + kind + method + "!")
-          let db = wx.getStorageSync("userInfo")
-          wx.request({
-            url: `${config.service.guessDataUrl}`,
-            method: "POST",
-            data: {
-              open_id: db.openId,
-              nick_name: db.nickName,
-              avatar_url: db.avatarUrl,
-              variety: idx,
-              gamePlay: method,
-              guess: kind
-            },
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success(res) {
-              console.log(res)
-            }
-          })
-        } else if (res.cancel) {
-          // console.log('用户点击取消')
-        }
-      }
-    })
-  },
-
-  selectUp: function(e) {
-    let method = e.currentTarget.dataset.method;
-    let cls = e.currentTarget.dataset.cls;
-    let dt = {
-      method: method,
-      cls: cls
-    }
-    this.selectItem(dt);
-  },
-
-  selectDown: function(e) {
-    let method = e.currentTarget.dataset.method;
-    let cls = e.currentTarget.dataset.cls;
-    let dt = {
-      method: method,
-      cls: cls
-    }
-    this.selectItem(dt);
-  },
+  //   wx.showModal({
+  //     title: '提示',
+  //     content: `您确定选择${tip + kind}？`,
+  //     success: function(res) {
+  //       if (res.confirm) {
+  //         // 接口数据处理
+  //         console.log('用户选择了' + kind + method + "!")
+  //         let db = wx.getStorageSync("userInfo")
+  //         wx.request({
+  //           url: `${config.service.guessDataUrl}`,
+  //           method: "POST",
+  //           data: {
+  //             open_id: db.openId,
+  //             nick_name: db.nickName,
+  //             avatar_url: db.avatarUrl,
+  //             variety: idx,
+  //             gamePlay: method,
+  //             guess: kind
+  //           },
+  //           header: {
+  //             'content-type': 'application/json' // 默认值
+  //           },
+  //           success(res) {
+  //             console.log(res)
+  //           }
+  //         })
+  //       } else if (res.cancel) {
+  //         // console.log('用户点击取消')
+  //       }
+  //     }
+  //   })
+  // },
   // 初始化录入用户信息
   sertUserInfo: function() {
     let db = wx.getStorageSync("userInfo")
@@ -350,32 +344,45 @@ log(){
     // this.setData({
     //   maskShow: !this.data.maskShow
     // })
-    const dataset=e.currentTarget.dataset;
+    if (!app.globalData.logged) return
+    const dataset = e.currentTarget.dataset;
     const data = JSON.parse(dataset.type)
-    console.log(data)
-    switch (this.data._num){
-      case 0:
-        console.log('btc');
-        this.selectThen(data.time,data.type)
-        break;
-      case 1:
-        console.log('eth');
-        this.selectThen(data.time, data.type)
-        break;
-      case 2:
-        console.log('eos');
-        this.selectThen(data.time, data.type)
-        break;
-    }
+    let that=this;
+    wx.showModal({
+      title: '提示',
+      content: `确定选择${ data.time == 'day' ? ' 趋势英雄 ' : ' 图表专家 ' }${that.data.coinArrays[that.data._num].msg}${data.type=='up'?' 涨 ':' 跌 '}?`,
+      success: function (res) {
+        if (res.confirm){
+          that.selectThen(data.time, data.type)
+          } else if(res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    // switch (this.data._num) {
+    //   case 0:
+    //     console.log('btc');
+    //     this.selectThen(data.time, data.type)
+    //     break;
+    //   case 1:
+    //     console.log('eth');
+    //     this.selectThen(data.time, data.type)
+    //     break;
+    //   case 2:
+    //     console.log('eos');
+    //     this.selectThen(data.time, data.type)
+    //     break;
+    // }
   },
-  selectThen(time,types){
-    switch (time){
+  selectThen(time, types) {
+    switch (time) {
       case "day":
         console.log("day");
-        let dayTemp=`modalArrays[${this.data._num}].dayModal`;//变量作为json key
+        let dayTemp = `modalArrays[${this.data._num}].dayModal`; //变量作为json key
         this.setData({
-         [dayTemp]:true
+          [dayTemp]: true
         })
+        this.storage();
         //------获取人数------
         // let nums = `modalArrays[${this.data._num}].dayUpNum`;
         // let that =this;
@@ -393,21 +400,6 @@ log(){
         //     },
         // })
         //------获取人数------
-        switch(types){
-          case "up":
-            console.log("up");
-            break;
-          case "down":
-            console.log("down")
-            break;
-        }
-      break;
-      case "min":
-        console.log("min");
-        let minTemp = `modalArrays[${this.data._num}].minModal`;
-        this.setData({
-          [minTemp]: true
-        })
         switch (types) {
           case "up":
             console.log("up");
@@ -416,7 +408,23 @@ log(){
             console.log("down")
             break;
         }
-      break;      
+        break;
+      case "min":
+        console.log("min");
+        let minTemp = `modalArrays[${this.data._num}].minModal`;
+        this.setData({
+          [minTemp]: true
+        })
+        this.storage();
+        switch (types) {
+          case "up":
+            console.log("up");
+            break;
+          case "down":
+            console.log("down")
+            break;
+        }
+        break;
     }
   }
 })

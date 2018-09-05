@@ -1,5 +1,197 @@
-.test{
-  height: 300rpx;
+/* pages/guess/rule.wxss */
+.container {
+}
+.border{
+  position: absolute;
+  top: -50rpx;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: red;
+  width: 640rpx;
+  height: 0;
+  border-top: 2rpx solid #102B44 ;
+}
+.main-title{
+  position: absolute;
+  top: 60rpx;
+  font-size: 34rpx;
+  color: white;
+}
+.half{
+  display: flex;
+  flex-basis: 514rpx;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 60rpx;
   width: 100%;
+}
+.wrap{
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 28rpx;
+  margin-bottom: 10rpx;
+  color:white;
+  letter-spacing: 0.12px;
+}
+.user-id{
+  margin-top: 30.4rpx;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  color:white;
+  letter-spacing: 0.12px;
+}
+.user-rank{
+  float: right;
+  background: #183753;
+  width: 130rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  color: white;
+  text-align: center;
+  border-radius: 100rpx;
+  font-size: 22rpx;
+  margin-left: 24rpx;
+}
+.amounts{
+  font-size: 28rpx;
+  color:white;
+  letter-spacing: 0.12px;
+}
+.combos{
+  display: inline-block;
+  position: relative;
+  left:-70rpx;
+}
+.ranks{
+  right: 172rpx;
+  position: absolute;
+  background: #183753;
+  width: 100%;
+  max-width: 130rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  color: white;
+  text-align: center;
+  border-radius: 100rpx;
+}
+.main-content{
+  position: relative;
+  flex-basis: 578rpx;
+  display: flex;
+  width: 696rpx;
+  justify-content: space-around;
+  align-items: center;
+  background:rgba(35, 82, 114, 0.69); 
+}
+.qr-wrap{
+  height: 208rpx;
+  width: 208rpx;
+  position: absolute;
+  left: -36rpx;
+  top: -36rpx;
+}
+.qr-code{
+  position: relative;
+  height: 136rpx;
+  width: 136rpx;
+  top: -20rpx;
+}
+.qr{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: -0.5rpx;
+}
+.qr-code::after{
+  position: absolute;
+  content: '扫二维码添加HeroNode官方客服';
+  color:white;
+  font-size: 20rpx;
+  bottom:-80rpx;
+  left: -26rpx;
+  text-align: center;
+  width: 186rpx;
+}
+.top{
+  position: absolute;
+  top: 25rpx;
+  height: 190rpx;
+  width: 650rpx;
+}
+.bot{
+  position: absolute;
+  bottom: 25rpx;
+  height: 190rpx;
+  width: 650rpx;
+}
+.content{
+  display: flex;
+  height: 100%;
+  flex-direction: column; 
+}
+.avatar{
+  margin-top:100rpx;
+  height: 200rpx;
+  width:  200rpx;
+  position: relative;
+}
+.avatar-img{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
 
+}
+.avatar-wrap{
+  height: 320rpx;
+  width: 320rpx;
+  position: absolute;
+  left: -60rpx;
+  top: -58rpx;
+}
+@media screen and (min-height: 689px)and (max-height: 975px) { 
+  .main-content{
+    
+  }
+  .avatar{
+  margin-top:80rpx;
+  }
+  .border{
+    top: 0rpx;
+  }
+  .half{
+    margin-top: 180rpx;
+  }
+  .main-content{
+    flex-basis: 650rpx;
+  }
+}
+@media screen and (min-height: 975px) {
+  .half{
+    margin-top: -110rpx;
+  }
+  .avatar{
+  margin-top:145rpx;
+  }
+  .main-content{
+    flex-basis: 500rpx;
+  }
+  .border{
+    top: -140rpx;
+  }
+   .main-title{
+     display: none;
+  }
+  .rules-title{
+  font-size: 26rpx;
+  color: white;
+  margin-bottom: 8rpx
+  }
+  .words{
+    line-height: 24rpx;
+  }
 }

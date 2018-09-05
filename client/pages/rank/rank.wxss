@@ -124,7 +124,7 @@ align-items: center;
 }
 .user-combos{
   height: 40rpx;
-  width: 172rpx;
+  min-width: 172rpx;
   color:white;
   line-height: 40rpx;
   text-align: center;

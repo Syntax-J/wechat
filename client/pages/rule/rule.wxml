@@ -1,5 +1,53 @@
-<!--pages/rule/rule.wxml-->
-<view class='container'>
- <image class='background-image' src='../static/img/Home_bg.png'></image>
-
-</view>
+<!--pages/guess/rule.wxml-->
+<view class="container">
+<!-- <view class='main-title'>一起猜涨跌</view> -->
+  <image class='background-image' src='../static/img/Home_bg.png'></image>
+  <view class='border'></view>
+  <view class='half'>
+    <view class='avatar'>
+          <image class='avatar-img' src="{{logged?'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132':''}}" mode='aspectFit'></image>
+          <image class='avatar-wrap' src="../static/img/rankImg/border.png" mode='aspectFit'></image>
+    </view>  
+    <view class='user-id'>USER</view>
+    <view class='wrap'>
+       <text>最高连续猜中12次</text>  
+       <view class='user-rank'>连中王者</view> 
+    </view>  
+    <view class='amounts'>可兑换HER数：2525</view>
+  </view>
+  <view class='main-content'>
+  <image class='top' src="../static/img/mine/top.png" mode='aspectFit'></image>
+  <image class='bot' src="../static/img/mine/bot.png" mode='aspectFit'></image>
+    <view class='qr-code'>
+    <image class='qr-wrap' src="../static/img/mine/qr_wrap.png" mode='aspectFit'></image>
+    <image class='qr' src="../static/img/mine/qr.png" mode='aspectFit'></image>
+    </view>
+    <view class='qr-code'>
+    <image class='qr-wrap' src="../static/img/mine/qr_wrap.png" mode='aspectFit'></image>
+     <image class='qr' src="../static/img/mine/qr.png" mode='aspectFit'></image>
+    </view>
+  </view>
+ </view>
+ <!-- <view class='play-title-wrap'>
+    
+      <text class='play-title {{_num==index ? "selected-title" : ""}}' id="play-title-{{index}}" data-index="{{index}}" bindtap="selectTab">{{item.msg}}</text>
+    </view>
+  </view>
+  <view class='select-wrap' wx:key="num">
+    <view class='day-selcet-wrap'>
+      <text class='select-title'>趋势英雄</text>
+      <view class='select-btn-wrap'>
+        <button class='up-btn' data-cls="up" data-method="min" bindtap="selectUp">涨</button>
+        <button class='down-btn' data-cls="down" data-method="min" bindtap="selectDown">跌</button>
+      </view>
+    </view>
+    <view class='min-selcet-wrap'>
+      <text class='select-title'>图表专家</text>
+      <view class='select-btn-wrap'>
+        <button class='up-btn' data-cls="up" data-method="day" bindtap="selectUp">涨</button>
+        <button class='down-btn' data-cls="down" data-method="day" bindtap="selectDown">跌</button>
+      </view>
+    </view>
+    <text class='select-desc'>注: 趋势英雄:每天仅限一次机会猜测涨跌</text>
+    <text class='select-desc'> 图表专家: 每5分钟一次机会猜测涨跌</text>
+  </view> -->

@@ -137,9 +137,12 @@ align-items: center;
   line-height: 60rpx;
   height: 60rpx;
   width: 88rpx;
-  background:#153049;
+  background:#5F7A93;
   border-radius: 12rpx;
   font-size: 29rpx; 
+}
+.mini-active{
+  border: 2rpx solid white;
 }
 @media screen and (min-height: 689px)and (max-height: 975px) { 
   .main-content{
