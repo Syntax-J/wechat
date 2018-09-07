@@ -44,7 +44,7 @@ function Tunnel(serviceUrl) {
     //=========================================================================
     // 暴露实例状态以及方法
     //=========================================================================
-  this.serviceUrl = "https://api.bibox365.com/v1/mdata?cmd=kline&pair=BIX_BTC&period=5min&size=1";
+    this.serviceUrl = serviceUrl;
     this.socketUrl = null;
     this.status = null;
 

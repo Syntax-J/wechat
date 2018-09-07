@@ -1,6 +1,20 @@
 /* pages/guess/rule.wxss */
 .container {
 }
+.login-btn{
+  color: white;
+  line-height: 60rpx;
+  height: 60rpx;
+  width: 180rpx;
+  background:#153049;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  margin-top:-25rpx; 
+}
+.welcome{
+  width: 650rpx;
+  height: 200rpx;
+}
 .border{
   position: absolute;
   top: -50rpx;
@@ -23,8 +37,9 @@
   display: flex;
   flex-basis: 514rpx;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  margin-top: 60rpx;
+  margin-top: 40rpx;
   width: 100%;
 }
 .wrap{
@@ -164,7 +179,7 @@
     top: 0rpx;
   }
   .half{
-    margin-top: 180rpx;
+    margin-top: 100rpx;
   }
   .main-content{
     flex-basis: 650rpx;
@@ -172,7 +187,7 @@
 }
 @media screen and (min-height: 975px) {
   .half{
-    margin-top: -110rpx;
+    margin-top: -80rpx;
   }
   .avatar{
   margin-top:145rpx;

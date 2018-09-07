@@ -1,6 +1,13 @@
 /* pages/guess/guess.wxss */
 .container {
 }
+.lg-btn{
+  position: absolute;
+  z-index: 100;
+  background: transparent;
+  height: 100vh;
+  width: 100%;
+}
 .main-title{
   position: absolute;
   top: 60rpx;
@@ -25,7 +32,8 @@
 
 .rules{
   min-height: 206rpx;
-  width: 660rpx; 
+  width: 660rpx;
+  margin-top: -20rpx;
 }
 .words{
   margin-top: 13rpx;
@@ -87,7 +95,6 @@
   background:#153049;
   border-radius: 12rpx;
   font-size: 29rpx;
-
 }
 .info-img{
   height: 29.4rpx;
@@ -134,12 +141,20 @@ align-items: center;
   display: inline-block;
   text-align: center;
   color: white;
-  line-height: 60rpx;
-  height: 60rpx;
-  width: 88rpx;
-  background:#5F7A93;
+  height: 20rpx;
+  width: 188rpx;
+  background:#08141E;
   border-radius: 12rpx;
   font-size: 29rpx; 
+}
+.progress{
+  box-sizing: border-box;
+  border: 4rpx solid #08141E;
+  width: 0%;
+  height: 100%;
+  background: #1986D2;
+  border-radius: 12rpx;
+  transition: all 0.6s;
 }
 .mini-active{
   border: 2rpx solid white;

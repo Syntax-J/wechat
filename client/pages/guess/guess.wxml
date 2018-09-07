@@ -1,6 +1,7 @@
 <!--pages/guess/guess.wxml-->
 <view class="container">
 <!-- <view class='main-title'>一起猜涨跌</view> -->
+
   <image class='background-image' src='../static/img/Home_bg.png'></image>
   <view class='half'>
     <image class='banner' src='../static/img/Home_banner.png'></image>
@@ -23,24 +24,28 @@
         <view wx:if="{{modalArrays[_num].dayModal}}" class='modal-box'>
           <view class='day-modal-box'>
             <view class='mini-btn {{modalArrays[_num].dayChoice==0?"mini-active":""}}'>
-              <text>涨</text>
-              <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
+            <view class='progress' style='width:{{100*modalArrays[_num].dayUpNum/(modalArrays[_num].dayDownNum+modalArrays[_num].dayUpNum)}}%'></view>
+              <!-- <text>涨</text>
+              <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image> -->
             </view>
-            <text class='modal-text'>当前人数：{{modalArrays[_num].dayUpNum}}</text>
+            <text class='modal-text'>涨：{{modalArrays[_num].dayUpNum}}</text>
           </view>
           <view class='day-modal-box'>
             <view class='mini-btn {{modalArrays[_num].dayChoice==1?"mini-active":""}}'>
-              <text>跌</text>
-              <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
+            <view class='progress' style='width:{{100*modalArrays[_num].dayDownNum/(modalArrays[_num].dayDownNum+modalArrays[_num].dayUpNum)}}%'></view>
+              <!-- <text>跌</text>
+              <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image> -->
             </view>
-            <text class='modal-text'>当前人数：{{modalArrays[_num].dayDownNum}}</text>
+            <text class='modal-text'>跌：{{modalArrays[_num].dayDownNum}}</text>
           </view>          
         </view>
-        <view wx:if="{{!modalArrays[_num].dayModal}}" class='btn' data-type='{"time":"day","type":"up"}' bindtap='select'>
+        <!-- 1:day 0:min -->
+        <!-- 1:Up 0:down -->
+        <view wx:if="{{!modalArrays[_num].dayModal}}" class='btn' data-type='{"time":1,"type":1}' bindtap='select'>
           <text>涨</text>
           <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
           </view>
-        <view wx:if="{{!modalArrays[_num].dayModal}}" class='btn' data-type='{"time":"day","type":"down"}' bindtap='select'>
+        <view wx:if="{{!modalArrays[_num].dayModal}}" class='btn' data-type='{"time":1,"type":0}' bindtap='select'>
           <text>跌</text>
           <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
         </view>
@@ -50,24 +55,27 @@
         <view wx:if="{{modalArrays[_num].minModal}}" class='modal-box'>
           <view class='day-modal-box'>
             <view class='mini-btn {{modalArrays[_num].minChoice==0?"mini-active":""}}'>
-              <text>涨</text>
-              <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
+            <view class='progress' style='width:{{100*modalArrays[_num].minUpNum/(modalArrays[_num].minDownNum+modalArrays[_num].minUpNum)}}%'></view>
+              <!-- <text>涨</text>
+              <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image> -->
             </view>
-            <text class='modal-text'>当前人数：{{modalArrays[_num].minUpNum}}</text>
+            <text class='modal-text'>涨：{{modalArrays[_num].minUpNum}}</text>
           </view>
           <view class='day-modal-box'>
+          
             <view class='mini-btn {{modalArrays[_num].minChoice==1?"mini-active":""}}'>
-              <text>跌</text>
-              <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
+              <view class='progress' style='width:{{100*modalArrays[_num].minDownNum/(modalArrays[_num].minDownNum+modalArrays[_num].minUpNum)}}%'></view>
+              <!-- <text>跌</text>
+              <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image> -->
             </view>
-            <text class='modal-text'>当前人数：{{modalArrays[_num].minDownNum}}</text>
+            <text class='modal-text'>跌：{{modalArrays[_num].minDownNum}}</text>
           </view>          
         </view>
-        <view wx:if="{{!modalArrays[_num].minModal}}" class='btn' data-type='{"time":"min","type":"up"}' bindtap='select'>
+        <view wx:if="{{!modalArrays[_num].minModal}}" class='btn' data-type='{"time":0,"type":1}' bindtap='select'>
           <text>涨</text>
           <image class='info-img' src='../static/img/rise.png' mode='aspectFit'></image>
           </view>
-        <view wx:if="{{!modalArrays[_num].minModal}}" class='btn' data-type='{"time":"min","type":"down"}' bindtap='select'>
+        <view wx:if="{{!modalArrays[_num].minModal}}" class='btn' data-type='{"time":0,"type":0}' bindtap='select'>
           <text>跌</text>
           <image class='info-img' src='../static/img/fall.png' mode='aspectFit'></image>
         </view>

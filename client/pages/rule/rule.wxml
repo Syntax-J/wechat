@@ -4,16 +4,19 @@
   <image class='background-image' src='../static/img/Home_bg.png'></image>
   <view class='border'></view>
   <view class='half'>
-    <view class='avatar'>
-          <image class='avatar-img' src="{{logged?'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132':''}}" mode='aspectFit'></image>
+    <view wx:if="{{hasUserInfo}}" class='avatar'>
+          <image class='avatar-img' src="{{userInfo.avatarUrl}}" mode='aspectFit'></image>
           <image class='avatar-wrap' src="../static/img/rankImg/border.png" mode='aspectFit'></image>
     </view>  
-    <view class='user-id'>USER</view>
-    <view class='wrap'>
-       <text>最高连续猜中12次</text>  
+    <view class='user-id'>{{userInfo.nickName}}</view>
+    <view wx:if="{{hasUserInfo}}" class='wrap'>
+       <text>最高连续猜中{{times}}次</text>  
        <view class='user-rank'>连中王者</view> 
-    </view>  
-    <view class='amounts'>可兑换HER数：2525</view>
+    </view>
+    <image wx:if="{{!hasUserInfo}}" class='welcome' src="../static/img/mine/welcome.png" mode='aspectFit'></image>
+       <button class='login-btn' wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </button>
+       <button bindtap='clear'>clear storage</button>
+    <view wx:if="{{hasUserInfo}}" class='amounts'>可兑换HER数：2525</view>
   </view>
   <view class='main-content'>
   <image class='top' src="../static/img/mine/top.png" mode='aspectFit'></image>

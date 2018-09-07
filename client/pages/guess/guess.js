@@ -23,6 +23,9 @@ Page({
     ],
     /**
      * @modalArrays:页面状态
+     * @dayModal:趋势英雄人数模块显示
+     * @dayUpNum:趋势英雄人数涨
+     * @dayDownNum:趋势英雄人数跌
      */
     modalArrays: [{
         //0:大饼
@@ -62,14 +65,12 @@ Page({
      */
     rule1: '本活动由Hero Node发起，共有趋势英雄和图表专家两种方式，猜中1次得5HER，连续猜中5次得500HER，连续猜中10次得50000HER。',
     rule2: '趋势英雄每天仅限一次机会猜测涨跌，图表专家每5分钟一次机会猜测涨跌。',
-    userInfo: {
-      nickName: "请登录"
-    },
+    userInfo: {},
     /**
      * @logged:是否登陆
      */
-    // takeSession: false,
-    // requestResult: '',
+    takeSession: false,
+    requestResult: '',
     /**
      * @_num:当前选择的种类
      */
@@ -94,18 +95,9 @@ Page({
     let str0 = `modalArrays[0]`;
     let str1 = `modalArrays[1]`;
     let str2 = `modalArrays[2]`;
-    wx.getStorageInfo({
-      success: function(res) {
-        console.log(res.keys)
-        console.log(res.currentSize)
-        console.log(res.limitSize)
-        console.log(res)
-      }
-    })
     wx.getStorage({
       key: 'modalArrays',
       success: function(res) {
-        console.log(JSON.parse(res.data)[0])
         that.setData({
           [str0]: JSON.parse(res.data)[0],
           [str1]: JSON.parse(res.data)[1],
@@ -123,7 +115,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
+  onLoad: function(options) {
+    // wx.hideTabBar();
+  },
   // log(){
   //   console.log(1)
   // },
@@ -131,15 +125,22 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    // this.init()
-    //this.bindGetUserInfo()
-    // // 初始化录入当前用户信息
-    // this.sertUserInfo()
-    // wx.getSystemInfo({
-    //   success: function(res) {
-    //     console.log(res.windowHeight)
+    wx.getUserInfo();
+    // wx.getSetting({
+    //   success(res) {
+    //     if (!res.authSetting['scope.scope.userInfo']) {
+    //       wx.authorize({
+    //         scope: 'scope.userInfo',
+    //         success() {
+    //           // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+    //         }
+    //       })
+    //     }
     //   }
     // })
+     //this.bindGetUserInfo()
+    // 初始化录入当前用户信息
+     
     /**
      * 初始化/获取页面状态
      */
@@ -148,7 +149,10 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    if (!app.globalData.logged) return
+    this.init();
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -172,80 +176,74 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {},
-  // 用户登录示例
-  bindGetUserInfo: function() {
-    if (app.globalData.logged) return
-    util.showBusy('正在登录')
-    const session = qcloud.Session.get()
-    if (!session) {
-      // 首次登录
-      qcloud.login({
-        success: res => {
-          let that = this;
-          console.log(res)
-          wx.setStorageSync("userInfo", res)
-          this.setData({
-            userInfo: res,
-          })
-           app.globalData.logged = true;
-          wx.hideLoading()
-          util.showSuccess('登录成功')
-          that.init();
-        },
-        fail: err => {
-          console.error(err)
-          let that = this;
-          wx.hideLoading()
-          wx.showModal({
-            title: '登陆失败',
-            content: '请确认网络状态,单击确认按钮重试',
-            showCancel: false,
-            success: function(res) {
-              if (res.confirm) {
-                that.bindGetUserInfo();
-              }
-            }
-          })
-        }
-      })
-    } else {
-      // 第二次登录
-      // 或者本地已经有登录态
-      // 可使用本函数更新登录态
-      qcloud.loginWithCode({
-        success: res => {
-          let that = this;
-          console.log(res)
-          wx.setStorageSync("userInfo", res)
-          this.setData({
-            userInfo: res,
-          })
-          app.globalData.logged = true;
-          wx.hideLoading()
-          util.showSuccess('登录成功')
-          that.init();
-        },
-        fail: err => {
-          console.error(err)
-          let that = this;
-          wx.hideLoading()
-          wx.showModal({
-            title: '登陆失败',
-            content: '请确认网络状态,单击确认按钮重试',
-            showCancel: false,
-            success: function(res) {
-              if (res.confirm) {
-                that.bindGetUserInfo();
-              }
-            }
-          })
-        }
-      })
-    }
+  onShareAppMessage: function() {
   },
+  // 用户登录示例
+  // bindGetUserInfo: function() {
+  //   if (app.globalData.logged) return
+  //   util.showBusy('正在登录')
+  //   const session = qcloud.Session.get()
+  //   if (!session) {
+  //     // 首次登录
+  //     qcloud.login({
+  //       success: res => {
+  //         let that = this;
+  //         console.log(res)
+  //         wx.setStorageSync("userInfo", res)
+  //         //  app.globalData.userInfo = res;
+  //          app.globalData.logged = true;
+  //         wx.hideLoading()
+  //         util.showSuccess('登录成功')
+  //       },
+  //       fail: err => {
+  //         console.error(err)
+  //         let that = this;
+  //         wx.hideLoading()
+  //         wx.showModal({
+  //           title: '登陆失败',
+  //           content: '请确认网络状态,单击确认按钮重试',
+  //           showCancel: false,
+  //           success: function(res) {
+  //             if (res.confirm) {
+  //               that.bindGetUserInfo();
+  //             }
+  //           }
+  //         })
+  //       }
+  //     })
+  //   } else {
+  //     // 第二次登录
+  //     // 或者本地已经有登录态
+  //     // 可使用本函数更新登录态
+  //     qcloud.loginWithCode({
+  //       success: res => {
+  //         let that = this;
+  //         wx.setStorageSync("userInfo", res)
+  //         // app.globalData.userInfo=res;
+  //         app.globalData.logged = true;
+  //         wx.hideLoading()
+  //         util.showSuccess('登录成功')
+  //       },
+  //       fail: err => {
+  //         console.error(err)
+  //         let that = this;
+  //         wx.hideLoading()
+  //         wx.showModal({
+  //           title: '登陆失败',
+  //           content: '请确认网络状态,单击确认按钮重试',
+  //           showCancel: false,
+  //           success: function(res) {
+  //             if (res.confirm) {
+  //               that.bindGetUserInfo();
+  //             }
+  //           }
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
 
-  // 切换是否带有登录态
+  // // 切换是否带有登录态
   // switchRequestMode: function(e) {
   //   this.setData({
   //     takeSession: e.detail.value
@@ -322,8 +320,9 @@ Page({
   //   })
   // },
   // 初始化录入用户信息
-  sertUserInfo: function() {
+  sertUserInfo: function () {
     let db = wx.getStorageSync("userInfo")
+    console.log(db)
     wx.request({
       url: `${config.service.sertInfoUrl}`,
       method: "POST",
@@ -350,7 +349,7 @@ Page({
     let that=this;
     wx.showModal({
       title: '提示',
-      content: `确定选择${ data.time == 'day' ? ' 趋势英雄 ' : ' 图表专家 ' }${that.data.coinArrays[that.data._num].msg}${data.type=='up'?' 涨 ':' 跌 '}?`,
+      content: `确定选择${ data.time == 1 ? ' 趋势英雄 ' : ' 图表专家 ' }${that.data.coinArrays[that.data._num].msg}${data.type==1 ?' 涨 ':' 跌 '}?`,
       success: function (res) {
         if (res.confirm){
           that.selectThen(data.time, data.type)
@@ -375,56 +374,58 @@ Page({
     // }
   },
   selectThen(time, types) {
-    switch (time) {
-      case "day":
-        console.log("day");
-        let dayTemp = `modalArrays[${this.data._num}].dayModal`; //变量作为json key
-        this.setData({
-          [dayTemp]: true
-        })
-        this.storage();
-        //------获取人数------
-        // let nums = `modalArrays[${this.data._num}].dayUpNum`;
-        // let that =this;
-        // wx.request({
-        //   url: '',
-        //   method: 'GET',
-        //   dataType: 'json',
-        //   responseType: 'text',
-        //   success: function(res) {
-        //     let data=res.data.result[0].time
-        //     console.log()
-        //     that.setData({
-        //       [nums]: data-1536046080000
-        //     })
-        //     },
+    //------请求获取人数--1day 1up----
+    let dayUpchoices = `modalArrays[${this.data._num}].dayUpNum`;
+    let dayDownchoices = `modalArrays[${this.data._num}].dayDownNum`;
+    let minUpchoices = `modalArrays[${this.data._num}].minUpNum`;
+    let minDownchoices = `modalArrays[${this.data._num}].minDownNum`
+    let db = wx.getStorageSync("userInfo")
+    let id = wx.getStorageSync("id")
+    let that = this;
+    wx.request({
+      url: `${config.service.guessDataUrl}`,
+      method: "POST",
+      data: {
+        open_id: id.data,
+        nick_name: db.nickName,
+        avatar_url: db.avatarUrl,
+        variety: 0,
+        gamePlay: 0,
+        guess: 0
+      },
+      success(res) {
+        console.log(res)
+      }
+    })
+        // this.setData({
+        //   [dayUpchoices]: 3,
+        //   [dayDownchoices]: 7
         // })
-        //------获取人数------
+        // this.storage();
+    switch (time) {
+      case 0:
         switch (types) {
-          case "up":
-            console.log("up");
-            break;
-          case "down":
-            console.log("down")
-            break;
+          case 0:
+           console.log('min down')
+           break
+          case 1:
+            console.log('min up')
+            break
         }
-        break;
-      case "min":
-        console.log("min");
-        let minTemp = `modalArrays[${this.data._num}].minModal`;
-        this.setData({
-          [minTemp]: true
-        })
-        this.storage();
+        break
+      case 1: 
         switch (types) {
-          case "up":
-            console.log("up");
-            break;
-          case "down":
-            console.log("down")
-            break;
+          case 0:
+            console.log('day down')
+            break
+          case 1:
+            console.log('day up')
+            break
         }
-        break;
-    }
+        break 
+     }
+    //   },
+    // })
+        //------日猜请求up获取人数------
   }
 })

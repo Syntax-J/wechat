@@ -13,18 +13,18 @@
         <image wx:if="{{index==2}}" class='levels' src='../static/img/rankImg/copper.png' mode='aspectFit'></image>
         <view class='levels-num' wx:if="{{index>2}}">{{index+1}}</view>
         <view class='avatar'>
-          <image class='avatar-img' src="{{item.avatarUrl}}" mode='aspectFit'></image>
+          <image class='avatar-img' src="{{item.avatar_url}}" mode='aspectFit'></image>
           <image class='avatar-wrap' src="../static/img/rankImg/border.png" mode='aspectFit'></image>
         </view>
           <view class='user-details'>
-            <view class='user-name'>{{item.userId}}</view>
-            <view class='user-rank' wx:if="{{item.combo<=5}}">连中菜鸟</view>
-            <view class='user-rank' wx:if="{{item.combo>5&&item.combo<=10}}">连中平民</view>
-            <view class='user-rank' wx:if="{{item.combo>10&&item.combo<=15}}">连中高手</view>
-            <view class='user-rank' wx:if="{{item.combo>15&&item.combo<=20}}">连中大师</view>
-            <view class='user-rank' wx:if="{{item.combo>20}}">连中王者</view>
+            <view class='user-name'>{{item.nick_name}}</view>
+            <view class='user-rank' wx:if="{{item.succession_time<=5}}">连中菜鸟</view>
+            <view class='user-rank' wx:if="{{item.succession_time>5&&item.succession_time<=10}}">连中平民</view>
+            <view class='user-rank' wx:if="{{item.succession_time>10&&item.succession_time<=15}}">连中高手</view>
+            <view class='user-rank' wx:if="{{item.succession_time>15&&item.succession_time<=20}}">连中大师</view>
+            <view class='user-rank' wx:if="{{item.succession_time>20}}">连中王者</view>
           </view>
-          <view class='user-combos'>连续猜中{{item.combo}}次</view>
+          <view class='user-combos'>连续猜中{{item.succession_time}}次</view>
           <view class='border'></view>
       </view>
   </view>

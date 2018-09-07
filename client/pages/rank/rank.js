@@ -1,77 +1,45 @@
 // pages/rank/rank.js
+var config = require('../../config')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rankArrays: [{
-        userId: "USER_NAME",
-        combo: 21,
-        avatarUrl: 'http://ww1.sinaimg.cn/large/71d1678cgw1elwrspnlicj20go0goq4a.jpg'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 20,
-        avatarUrl: 'http://imgtu.5011.net/uploads/content/20170209/4934501486627131.jpg'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 16,
-        avatarUrl: 'http://p1.qqyou.com/touxiang/uploadpic/2013-10/6/2013100615495759500.jpg'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 15,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 11,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 10,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 6,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 5,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-      {
-        userId: "USER_NAME",
-        combo: 3,
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Cx5urEV7QbIdl1kp2Yu7FHlzzw67B3lPibiazx2aIJNMjL2sVpjACBebR5DZqwwEgHVUnibow0fG8DD5Ij3oDdDVQ/132'
-      },
-    ]
+    rankArrays: []
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this;
+    wx.request({
+      url: config.service.getRankUrl,
+      method: 'GET',
+      success: function (res) {
+        console.log(res)
+        let temp = res.data.data.msg;
+        if (temp){
+        console.log(res)
+        that.setData({
+          rankArrays: temp
+        })
+        }
+      },
+      fail: function (res) { console.log(res) }
+    })
   },
 
   /**

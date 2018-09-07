@@ -19,7 +19,6 @@ function listen(listener) {
 }
 
 /* istanbul ignore next */
-
 function bind() {
     wx.onSocketOpen(result => onOpen(result));
     wx.onSocketClose(result => onClose(result));
