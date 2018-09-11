@@ -13,7 +13,7 @@ Page({
         url: "../static/img/0.png"
       },
       {
-        msg: "以太",
+        msg: "姨太",
         url: "../static/img/1.png"
       },
       {
@@ -63,8 +63,8 @@ Page({
     /**
      * @rules:规则文本
      */
-    rule1: '本活动由Hero Node发起，共有趋势英雄和图表专家两种方式，猜中1次得5HER，连续猜中5次得500HER，连续猜中10次得50000HER。',
-    rule2: '趋势英雄每天仅限一次机会猜测涨跌，图表专家每5分钟一次机会猜测涨跌。',
+    rule1: '1、永不离场，哪怕玩一玩下面的小游戏，不放弃就有希望，放弃了你就是nothing。',
+    rule2: '2、持续关注，在别人恐慌的时候要兴奋，在别人疯狂的时候要冷静。',
     userInfo: {},
     /**
      * @logged:是否登陆
@@ -77,6 +77,7 @@ Page({
     _num: 0,
     // variety: 0,
     // gamePlay: 0,
+    flags:{}
   },
   /**
    * @storage:状态同步本地storage
@@ -92,6 +93,7 @@ Page({
      * 初始化/获取页面状态
      */
     let that = this;
+    let id = app.globalData.id;
     let str0 = `modalArrays[0]`;
     let str1 = `modalArrays[1]`;
     let str2 = `modalArrays[2]`;
@@ -102,6 +104,87 @@ Page({
           [str0]: JSON.parse(res.data)[0],
           [str1]: JSON.parse(res.data)[1],
           [str2]: JSON.parse(res.data)[2]
+        })
+        wx.request({
+          url: config.service.getFlag,
+          method: "POST",
+          data: {
+            open_id: id,
+          },
+          success(res) {
+            console.log(res)
+            let temp = res.data.data.showFlag[0]
+            console.log(temp)
+            let dbDay = `modalArrays[0].dayModal`
+            let dbMin = `modalArrays[0].minModal`
+            let zdDay = `modalArrays[1].dayModal`
+            let zdMin = `modalArrays[1].minModal`
+            let yzDay = `modalArrays[2].dayModal`
+            let yzMin = `modalArrays[2].minModal`
+
+            let dbdayUp = `modalArrays[0].dayUpNum`;
+            let dbdayDown = `modalArrays[0].dayDownNum`;
+            let dbminUp = `modalArrays[0].minUpNum`;
+            let dbminDown = `modalArrays[0].minDownNum`
+
+            let zddayUp = `modalArrays[1].dayUpNum`;
+            let zddayDown = `modalArrays[1].dayDownNum`;
+            let zdminUp = `modalArrays[1].minUpNum`;
+            let zdminDown = `modalArrays[1].minDownNum`
+
+            let yzdayUp = `modalArrays[2].dayUpNum`;
+            let yzdayDown = `modalArrays[2].dayDownNum`;
+            let yzminUp = `modalArrays[2].minUpNum`;
+            let yzminDown = `modalArrays[2].minDownNum`
+            if (temp.db_min_flag == 0 || temp.db_min_flag == 3) {
+              that.setData({
+                [dbMin]: false,
+                [dbminUp]:0,
+                [dbminDown]: 0
+              })
+              that.storage();
+            }
+            if (temp.db_day_flag == 0 || temp.db_day_flag == 3) {
+              that.setData({
+                [dbDay]: false,
+                [dbdayUp]: 0,
+                [dbdayDown]: 0
+              })
+              that.storage();
+            }
+            if (temp.zd_min_flag == 0 || temp.zd_min_flag == 3) {
+              that.setData({
+                [zdMin]: false,
+                [zdminUp]: 0,
+                [zdminDown]: 0
+              })
+              that.storage();
+            }
+            if (temp.zd_day_flag == 0 || temp.zd_day_flag == 3) {
+              that.setData({
+                [zdDay]: false,
+                [zddayUp]: 0,
+                [zddayDown]: 0
+              })
+              that.storage();
+            }
+            if (temp.yz_min_flag == 0 || temp.yz_min_flag == 3) {
+              that.setData({
+                [yzMin]: false,
+                [yzminUp]: 0,
+                [yzminDown]: 0
+              })
+              that.storage();
+            }
+            if (temp.yz_day_flag == 0 || temp.yz_day_flag == 3) {
+              that.setData({
+                [yzDay]: false,
+                [yzdayUp]: 0,
+                [yzdayDown]: 0
+              })
+              that.storage();
+            }
+          }
         })
       },
       fail: function(res) {
@@ -125,7 +208,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    wx.getUserInfo();
     // wx.getSetting({
     //   success(res) {
     //     if (!res.authSetting['scope.scope.userInfo']) {
@@ -278,13 +360,24 @@ Page({
 
   // 选择种类
   selectTab: function(e) {
-    if (!app.globalData.logged) return
+    if (app.globalData.logged) 
+    {
+
     let idx = e.currentTarget.dataset.index;
     this.setData({
       _num: e.currentTarget.dataset.index,
       variety: idx
     })
-    console.log("当前种类：" + this.data.variety);
+    // console.log("当前种类：" + this.data.variety);
+    }else{
+      wx.showModal({
+      showCancel:false,
+      title: '提示',
+      content: `请先登录`,
+      success: function(res) {
+      }    
+    })
+    }
   },
 
   //   wx.showModal({
@@ -320,40 +413,51 @@ Page({
   //   })
   // },
   // 初始化录入用户信息
-  sertUserInfo: function () {
-    let db = wx.getStorageSync("userInfo")
-    console.log(db)
-    wx.request({
-      url: `${config.service.sertInfoUrl}`,
-      method: "POST",
-      data: {
-        open_id: db.openId,
-        nick_name: db.nickName,
-        avatar_url: db.avatarUrl
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res)
-      }
-    })
-  },
+  // sertUserInfo: function () {
+  //   let db = wx.getStorageSync("userInfo")
+  //   console.log(db)
+  //   wx.request({
+  //     url: `${config.service.sertInfoUrl}`,
+  //     method: "POST",
+  //     data: {
+  //       open_id: db.openId,
+  //       nick_name: db.nickName,
+  //       avatar_url: db.avatarUrl
+  //     },
+  //     header: {
+  //       'content-type': 'application/json' // 默认值
+  //     },
+  //     success(res) {
+  //       console.log(res)
+  //     }
+  //   })
+  // },
   select(e) {
     // this.setData({
     //   maskShow: !this.data.maskShow
     // })
-    if (!app.globalData.logged) return
-    const dataset = e.currentTarget.dataset;
-    const data = JSON.parse(dataset.type)
-    let that=this;
-    wx.showModal({
-      title: '提示',
-      content: `确定选择${ data.time == 1 ? ' 趋势英雄 ' : ' 图表专家 ' }${that.data.coinArrays[that.data._num].msg}${data.type==1 ?' 涨 ':' 跌 '}?`,
-      success: function (res) {
-        if (res.confirm){
-          that.selectThen(data.time, data.type)
-          } else if(res.cancel) {
+    if (app.globalData.logged) {
+      const dataset = e.currentTarget.dataset;
+      const data = JSON.parse(dataset.type)
+      // console.log(this.data.flags, data.time)
+      // if (this.data.flags.db_min_flag==1&&data.time==0){
+      //   wx.showModal({
+      //     showCancel:false,
+      //     title: '提示',
+      //     content: `您已经猜过了请稍等`,
+      //     success: function (res) {
+      //       console.log('ban')
+      //     }
+      //   })
+      // }
+      let that = this;
+      wx.showModal({
+        title: '提示',
+        content: `确定选择${data.time == 1 ? ' 趋势英雄 ' : ' 图表专家 '}${that.data.coinArrays[that.data._num].msg}${data.type == 1 ? ' 涨 ' : ' 跌 '}?`,
+        success: function (res) {
+          if (res.confirm) {
+            that.selectThen(data.time, data.type)
+          } else if (res.cancel) {
             console.log('用户点击取消')
           }
         }
@@ -372,6 +476,16 @@ Page({
     //     this.selectThen(data.time, data.type)
     //     break;
     // }
+    }else{
+      wx.showModal({
+        showCancel: false,
+        title: '提示',
+        content: `请先登录`,
+        success: function (res) {
+        }
+      })
+    }
+ 
   },
   selectThen(time, types) {
     //------请求获取人数--1day 1up----
@@ -379,22 +493,64 @@ Page({
     let dayDownchoices = `modalArrays[${this.data._num}].dayDownNum`;
     let minUpchoices = `modalArrays[${this.data._num}].minUpNum`;
     let minDownchoices = `modalArrays[${this.data._num}].minDownNum`
-    let db = wx.getStorageSync("userInfo")
-    let id = wx.getStorageSync("id")
+    let openDayModal = `modalArrays[${this.data._num}].dayModal`
+    let openMinModal = `modalArrays[${this.data._num}].minModal`
+    let db = app.globalData.userInfo;
+    let id = app.globalData.id;
     let that = this;
     wx.request({
       url: `${config.service.guessDataUrl}`,
       method: "POST",
       data: {
-        open_id: id.data,
+        open_id: id,
         nick_name: db.nickName,
         avatar_url: db.avatarUrl,
-        variety: 0,
-        gamePlay: 0,
-        guess: 0
+        variety: that.data._num,
+        gamePlay: time,
+        guess: types
       },
       success(res) {
         console.log(res)
+        let _up=res.data.data.selectUp
+        let _down = res.data.data.selectDown
+        if (types == 0) { _down++}
+        if (types == 1) { _up++ }
+        console.log(_up)
+        console.log(_down)
+        switch (time) {
+          case 0:
+            that.setData({
+              [openMinModal]: true,
+              [minUpchoices]:_up,
+              [minDownchoices]:_down
+            })
+            that.storage();
+            switch (types) {
+              case 0:
+                console.log('min down')
+                break
+              case 1:
+                console.log('min up')
+                break
+            }
+            break
+          case 1:
+            that.setData({
+              [openDayModal]: true,
+              [dayUpchoices]: _up,
+              [dayDownchoices]: _down
+            })
+            that.storage();
+            switch (types) {
+              case 0:
+                console.log('day down')
+                break
+              case 1:
+                console.log('day up')
+                break
+            }
+            break
+        }
       }
     })
         // this.setData({
@@ -402,28 +558,6 @@ Page({
         //   [dayDownchoices]: 7
         // })
         // this.storage();
-    switch (time) {
-      case 0:
-        switch (types) {
-          case 0:
-           console.log('min down')
-           break
-          case 1:
-            console.log('min up')
-            break
-        }
-        break
-      case 1: 
-        switch (types) {
-          case 0:
-            console.log('day down')
-            break
-          case 1:
-            console.log('day up')
-            break
-        }
-        break 
-     }
     //   },
     // })
         //------日猜请求up获取人数------

@@ -29,11 +29,17 @@
   height: 289.2rpx;
   min-height: 289.2rpx;
 }
-
+.hint{
+  width: 100%;
+  color:white;
+  font-size: 16rpx;
+  opacity: 0.8;
+  margin-left: 13rpx;
+}
 .rules{
   min-height: 206rpx;
   width: 660rpx;
-  margin-top: -20rpx;
+  margin-top: 0rpx;
 }
 .words{
   margin-top: 13rpx;
@@ -110,6 +116,7 @@ align-items: center;
 
 }
 .game-box{
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -122,6 +129,16 @@ align-items: center;
 .titles{
   height: 46rpx;
   width:188rpx;
+  margin-bottom: 20rpx;
+}
+.hint-box{
+  left: 32rpx;
+  height: 100%;
+  width: 188rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .modal-box{
   margin-left: 60rpx;
@@ -166,8 +183,11 @@ align-items: center;
   .main-title{
   top: 110rpx;
   }
+  .rules{
+    margin-top: 20rpx;
+  }
   .half{
-    margin-top: 180rpx;
+    margin-top: 168rpx;
   }
   .words{
     line-height: 36rpx;
@@ -180,7 +200,7 @@ align-items: center;
   .main-content{
     margin-top: 50rpx;
   }
-   .main-title{
+  .main-title{
      display: none;
   }
   .rules-title{

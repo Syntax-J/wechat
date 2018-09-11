@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/rule/rule",
     "pages/guess/guess",
+    "pages/rule/rule",
     "pages/rank/rank"
     
   ],

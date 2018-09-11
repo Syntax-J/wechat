@@ -46,5 +46,5 @@ router.post('/getResult', controllers.getResult)
 // 获取排行榜数据接口
 router.get('/getRank', controllers.getRank)
 router.post('/getId', controllers.getId)
-
+router.post('/getFlag', controllers.getFlag)
 module.exports = router

@@ -59,7 +59,7 @@
 }
 .user-rank{
   float: right;
-  background: #183753;
+  background: rgba(24, 55, 83, 0.5);
   width: 130rpx;
   height: 36rpx;
   line-height: 36rpx;
@@ -113,6 +113,12 @@
   width: 136rpx;
   top: -20rpx;
 }
+.qr-code2{
+  position: relative;
+  height: 136rpx;
+  width: 136rpx;
+  top: -20rpx;
+}
 .qr{
   width: 100%;
   height: 100%;
@@ -121,13 +127,61 @@
 }
 .qr-code::after{
   position: absolute;
-  content: '扫二维码添加HeroNode官方客服';
+  content: '扫二维码添加HeroNode官方微信';
   color:white;
   font-size: 20rpx;
   bottom:-80rpx;
   left: -26rpx;
   text-align: center;
   width: 186rpx;
+}
+.qr-code2::after{
+  position: absolute;
+  content: '扫二维码添加HeroNode官方TG';
+  color:white;
+  font-size: 20rpx;
+  bottom:-80rpx;
+  left: -26rpx;
+  text-align: center;
+  width: 186rpx;
+}
+.ser-btn{
+  position: absolute;
+  z-index: 9999;
+    height: 50rpx;
+  width: 200rpx;
+  background: transparent;
+}
+.ser-wrap{
+  border-radius: 12rpx;
+  height: 50rpx;
+  width: 200rpx;
+  margin-top: 20rpx;
+  position: relative; 
+  background:#153049;
+}
+.ser-wrap::after{
+  content: '官方客服';
+  color:white;
+  font-size: 20rpx;
+  position: absolute;
+  left:76rpx;
+  top: 13rpx;
+}
+.ser-img{
+  position: absolute;
+  height: 24rpx;
+  width: 24rpx;
+  left: 44rpx;
+  top: 13rpx;
+}
+.ser-info{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .top{
   position: absolute;
@@ -179,7 +233,7 @@
     top: 0rpx;
   }
   .half{
-    margin-top: 100rpx;
+    margin-top: 150rpx;
   }
   .main-content{
     flex-basis: 650rpx;
@@ -190,13 +244,13 @@
     margin-top: -80rpx;
   }
   .avatar{
-  margin-top:145rpx;
+  margin-top:115rpx;
   }
   .main-content{
-    flex-basis: 500rpx;
+    flex-basis: 400rpx;
   }
   .border{
-    top: -140rpx;
+    top: 35rpx;
   }
    .main-title{
      display: none;

@@ -29,10 +29,8 @@ Page({
       url: config.service.getRankUrl,
       method: 'GET',
       success: function (res) {
-        console.log(res)
         let temp = res.data.data.msg;
         if (temp){
-        console.log(res)
         that.setData({
           rankArrays: temp
         })

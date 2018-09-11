@@ -11,23 +11,47 @@
     <view class='user-id'>{{userInfo.nickName}}</view>
     <view wx:if="{{hasUserInfo}}" class='wrap'>
        <text>最高连续猜中{{times}}次</text>  
-       <view class='user-rank'>连中王者</view> 
+            <view class='user-rank' wx:if="{{times<=1}}">青铜V</view>
+            <view class='user-rank' wx:if="{{times==2}}">青铜IV</view>
+            <view class='user-rank' wx:if="{{times==3}}">青铜III</view>
+            <view class='user-rank' wx:if="{{times==4}}">青铜II</view>
+            <view class='user-rank' wx:if="{{times==5}}">青铜I</view>
+            <view class='user-rank' wx:if="{{times==6}}">白银V</view>
+            <view class='user-rank' wx:if="{{times==7}}">白银IV</view>
+            <view class='user-rank' wx:if="{{times==8}}">白银III</view>
+            <view class='user-rank' wx:if="{{times==9}}">白银II</view>
+            <view class='user-rank' wx:if="{{times==10}}">白银I</view>
+            <view class='user-rank' wx:if="{{times==11}}">黄金V</view>
+            <view class='user-rank' wx:if="{{times==12}}">黄金IV</view>
+            <view class='user-rank' wx:if="{{times==13}}">黄金III</view>
+            <view class='user-rank' wx:if="{{times==14}}">黄金II</view>
+            <view class='user-rank' wx:if="{{times==15}}">黄金I</view>
+            <view class='user-rank' wx:if="{{times==16}}">铂金V</view>
+            <view class='user-rank' wx:if="{{times==17}}">铂金IV</view>
+            <view class='user-rank' wx:if="{{times==18}}">铂金III</view>
+            <view class='user-rank' wx:if="{{times==19}}">铂金II</view>
+            <view class='user-rank' wx:if="{{times==20}}">铂金I</view>
+            <view class='user-rank' wx:if="{{times>20}}">永恒钻石</view>
+
+       
     </view>
+      <view wx:if="{{hasUserInfo}}" class='ser-wrap'>
+      <image class='ser-img' src="../static/img/mine/ser.png" mode='aspectFit'></image>
+       <button class='ser-btn' open-type='contact' bindtap='log'></button> 
+       </view>
     <image wx:if="{{!hasUserInfo}}" class='welcome' src="../static/img/mine/welcome.png" mode='aspectFit'></image>
        <button class='login-btn' wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </button>
-       <button bindtap='clear'>clear storage</button>
-    <view wx:if="{{hasUserInfo}}" class='amounts'>可兑换HER数：2525</view>
   </view>
   <view class='main-content'>
   <image class='top' src="../static/img/mine/top.png" mode='aspectFit'></image>
   <image class='bot' src="../static/img/mine/bot.png" mode='aspectFit'></image>
-    <view class='qr-code'>
-    <image class='qr-wrap' src="../static/img/mine/qr_wrap.png" mode='aspectFit'></image>
+    <view class='qr-code' bindtap='redirct'>
+    <image class='qr-wrap'  src="../static/img/mine/qr_wrap.png" mode='aspectFit'></image>
     <image class='qr' src="../static/img/mine/qr.png" mode='aspectFit'></image>
     </view>
-    <view class='qr-code'>
+    <view class='qr-code2'>
     <image class='qr-wrap' src="../static/img/mine/qr_wrap.png" mode='aspectFit'></image>
-     <image class='qr' src="../static/img/mine/qr.png" mode='aspectFit'></image>
+     <image class='qr' src="../static/img/mine/tg.png" mode='aspectFit'></image>
     </view>
   </view>
  </view>

@@ -18,7 +18,7 @@ module.exports = async ctx => {
   var req = ctx.request.body
 
   // 定义获取外部接口URL    /* url对应的时间字段未更改 */
-  var url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=BIX_BTC&period=1min&size=1'
+  var url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=BIX_BTC&period=5min&size=1'
 
   // 获取当前用户的open_id
   var openId = req.open_id
@@ -80,7 +80,7 @@ module.exports = async ctx => {
         // 用户选择的是db_min
         flag = flag1
         kindFlag[flag] = 0
-        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=BTC_USDT&period=1min&size=1'
+        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=BTC_USDT&period=5min&size=1'
         reqTime = dbMinReqTime
         kind_guess = kind_guess1
         result = kind_res1
@@ -111,7 +111,7 @@ module.exports = async ctx => {
     case 1:
       if (gamePlay == 0) {
         // 用户选择的是zd_min
-        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=ETH_USDT&period=1min&size=1'
+        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=ETH_USDT&period=5min&size=1'
         reqTime = zdMinReqTime
         kind_guess = kind_guess3
         result = kind_res3
@@ -145,7 +145,7 @@ module.exports = async ctx => {
     case 2:
       if (gamePlay == 0) {
         // 用户选择的是yz_min
-        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=EOS_USDT&period=1min&size=1'
+        url = 'https://api.bibox365.com/v1/mdata?cmd=kline&pair=EOS_USDT&period=5min&size=1'
         reqTime = yzMinReqTime
         kind_guess = kind_guess5
         result = kind_res5
@@ -185,8 +185,10 @@ module.exports = async ctx => {
 
   var timerTask
 
+  var t
+
   // 去掉req 只留res 去掉Promise resolve reject 防止异步执行会报错
-  // 定时从外部API获取新的数据（1min）
+  // 定时从外部API获取新的数据（5min）
   async function reqData() {
     https.get(url, function (res) {
       var datas = []
@@ -197,9 +199,7 @@ module.exports = async ctx => {
       });
       res.on('end', function () {
           var buff = Buffer.concat(datas, size)
-          console.log(buff)
-          //转码 var result = buff.toString();//不需要转编码的话,直接tostring  
-          // var html = iconv.decode(buff, "utf8")
+          // var html = iconv.decode(buff, "utf8")  //不需要转编码的话,直接tostring
           var html = buff.toString()
           if(html == "") {
             // 当此次返回结果为空的时候  重新请求接口  直至请求成功
@@ -215,7 +215,7 @@ module.exports = async ctx => {
             let close = ApiRes.close
             let low = ApiRes.low
             let high = ApiRes.high
-            console.log("apiResTime" + ApiResTime)
+            console.log("apiResTime:" + ApiResTime)
             // 判断涨跌
             if (parseFloat(close - open) == 0) {
               if (parseFloat(high - open) < parseFloat(open - low)) {
@@ -233,7 +233,7 @@ module.exports = async ctx => {
               guessResult = 0
             }
             getData()
-            t = setInterval(getUpdateTime, 0)
+            t = setTimeout(getUpdateTime, 0)
           }
       });
     }).on("error", function (err) {
@@ -244,25 +244,26 @@ module.exports = async ctx => {
   }
   reqData()
   // 定时循环执行
-  var r = setInterval(reqData, 10000)
+  var r = setInterval(reqData, 60000)
 
   // 获得数据结果更新时间
   async function getUpdateTime() {
     var date = new Date(ApiResTime)
-    console.log("当前所需更新的种类是:" + kind_guess)
-    if (kind_guess == kind_guess1 || kind_guess == kind_guess3 || kind_guess == kind_guess5) {
-      updateTime = date.setMinutes(date.getMinutes() + 2)
-    } else if (kind_guess == kind_guess2 || kind_guess == kind_guess4 || kind_guess == kind_guess6) {
-      updateTime = date.setDate(date.getDate() + 2)
-    }
-    if (updateTime != undefined && updateTime != null ) {
+    if (updateTime == undefined) {
+      console.log("当前所需更新的种类是:" + kind_guess)
+      if (kind_guess == kind_guess1 || kind_guess == kind_guess3 || kind_guess == kind_guess5) {
+        updateTime = date.setMinutes(date.getMinutes() + 10)
+      } else if (kind_guess == kind_guess2 || kind_guess == kind_guess4 || kind_guess == kind_guess6) {
+        updateTime = date.setDate(date.getDate() + 2)
+      }
+    } else {
       // 用户上次更新请求时间存起来   定时器循环执行获取apitime  当API时间更新到十分钟后或一天后时  更新结果即可  
       sqlGuessDt[reqTime] = updateTime
       // 首先录入数据库中用户猜测的选择
-      await mysql("cUserInfo").update(sqlGuessDt).where(openIdDt)
+      clearTimeout(t)
+      return await mysql("cUserInfo").update(sqlGuessDt).where(openIdDt)
     }
   }
-  var t
   // 点击后flag设置为1  即 不可点击
   kindFlag[flag] = 1
   await mysql("cUserInfo").update(kindFlag).where(openIdDt)
@@ -275,11 +276,6 @@ module.exports = async ctx => {
     let myData = await mysql.select(reqTime, flag).from('cUserInfo').where(openIdDt)
     let timer = myData[0][reqTime]
     var kind_flag = myData[0][flag]
-    // kindFlag[flag] = 0
-    // await mysql("cUserInfo").update(kindFlag).where(openIdDt)
-    if (nowTimer < updateTime) {
-      clearInterval(t)
-    }
     console.log(url)
     console.log("nowTime:"+timer)
     if (ApiResTime == updateTime) {

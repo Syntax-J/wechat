@@ -1,12 +1,12 @@
 <!--pages/guess/guess.wxml-->
 <view class="container">
 <!-- <view class='main-title'>一起猜涨跌</view> -->
-
   <image class='background-image' src='../static/img/Home_bg.png'></image>
   <view class='half'>
     <image class='banner' src='../static/img/Home_banner.png'></image>
     <view class='rules'>
-      <view class='rules-title'>规则介绍:</view>
+      <view class='rules-title'>韭菜的自我修养
+:</view>
       <view class='words'>{{rule1}}</view>
       <view class='words'>{{rule2}}</view>
     </view>
@@ -20,7 +20,12 @@
     </view>
     <view class='content'>
       <view class='game-box border'>
+     
+        
+        <view class='hint-box'>
         <image class='titles' src='../static/img/title1.png' mode='aspectFit'></image>
+         <view class='hint'>注:猜测今天的日线是涨还是跌，每天只能玩一次哦!</view>
+        </view>
         <view wx:if="{{modalArrays[_num].dayModal}}" class='modal-box'>
           <view class='day-modal-box'>
             <view class='mini-btn {{modalArrays[_num].dayChoice==0?"mini-active":""}}'>
@@ -51,7 +56,10 @@
         </view>
       </view>
       <view class='game-box'>
-        <image class='titles' src='../static/img/title2.png' mode='aspectFit'></image>
+      <view class='hint-box'>
+      <image class='titles' src='../static/img/title2.png' mode='aspectFit'></image>
+         <view class='hint'>注:猜测5分钟K线的涨跌，图表派来挑战啊!</view>
+      </view>
         <view wx:if="{{modalArrays[_num].minModal}}" class='modal-box'>
           <view class='day-modal-box'>
             <view class='mini-btn {{modalArrays[_num].minChoice==0?"mini-active":""}}'>

@@ -18,11 +18,27 @@
         </view>
           <view class='user-details'>
             <view class='user-name'>{{item.nick_name}}</view>
-            <view class='user-rank' wx:if="{{item.succession_time<=5}}">连中菜鸟</view>
-            <view class='user-rank' wx:if="{{item.succession_time>5&&item.succession_time<=10}}">连中平民</view>
-            <view class='user-rank' wx:if="{{item.succession_time>10&&item.succession_time<=15}}">连中高手</view>
-            <view class='user-rank' wx:if="{{item.succession_time>15&&item.succession_time<=20}}">连中大师</view>
-            <view class='user-rank' wx:if="{{item.succession_time>20}}">连中王者</view>
+            <view class='user-rank' wx:if="{{item.succession_time<=1}}">青铜V</view>
+            <view class='user-rank' wx:if="{{item.succession_time==2}}">青铜IV</view>
+            <view class='user-rank' wx:if="{{item.succession_time==3}}">青铜III</view>
+            <view class='user-rank' wx:if="{{item.succession_time==4}}">青铜II</view>
+            <view class='user-rank' wx:if="{{item.succession_time==5}}">青铜I</view>
+            <view class='user-rank' wx:if="{{item.succession_time==6}}">白银V</view>
+            <view class='user-rank' wx:if="{{item.succession_time==7}}">白银IV</view>
+            <view class='user-rank' wx:if="{{item.succession_time==8}}">白银III</view>
+            <view class='user-rank' wx:if="{{item.succession_time==9}}">白银II</view>
+            <view class='user-rank' wx:if="{{item.succession_time==10}}">白银I</view>
+            <view class='user-rank' wx:if="{{item.succession_time==11}}">黄金V</view>
+            <view class='user-rank' wx:if="{{item.succession_time==12}}">黄金IV</view>
+            <view class='user-rank' wx:if="{{item.succession_time==13}}">黄金III</view>
+            <view class='user-rank' wx:if="{{item.succession_time==14}}">黄金II</view>
+            <view class='user-rank' wx:if="{{item.succession_time==15}}">黄金I</view>
+            <view class='user-rank' wx:if="{{item.succession_time==16}}">铂金V</view>
+            <view class='user-rank' wx:if="{{item.succession_time==17}}">铂金IV</view>
+            <view class='user-rank' wx:if="{{item.succession_time==18}}">铂金III</view>
+            <view class='user-rank' wx:if="{{item.succession_time==19}}">铂金II</view>
+            <view class='user-rank' wx:if="{{item.succession_time==20}}">铂金I</view>
+            <view class='user-rank' wx:if="{{item.succession_time>20}}">永恒钻石</view>
           </view>
           <view class='user-combos'>连续猜中{{item.succession_time}}次</view>
           <view class='border'></view>

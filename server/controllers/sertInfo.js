@@ -11,21 +11,21 @@ module.exports = async ctx => {
   var req = ctx.request.body
 
   // 先查询数据库是否存在该用户  若存在则update   若不存在则insert
-  var openId = await mysql.select("open_id").from("cUserInfo")
+  var openId = await mysql.select("open_id").from("cUserInfo").where("open_id", req.open_id)
   var len = openId.length
   // var result
 
-  let findIdx = []
-  // 遍历 若存在 push 1 
-  for (let i = 0; i < len; i++) {
-    if (req.open_id == openId[i].open_id) {
-      findIdx.push("1")
-    } else {
-      findIdx.push("0")
-    }
-  }
+  // let findIdx = []
+  // // 遍历 若存在 push 1 
+  // for (let i = 0; i < len; i++) {
+  //   if (req.open_id == openId[i].open_id) {
+  //     findIdx.push("1")
+  //   } else {
+  //     findIdx.push("0")
+  //   }
+  // }
 
-  if (findIdx.indexOf("1") == -1) {
+  if (len<=0) {
     // 当前用户第一次登录
     await mysql("cUserInfo").insert({
       open_id: req.open_id,
@@ -47,6 +47,7 @@ module.exports = async ctx => {
   ctx.state.data = {
     data: ctx.request.body,
     rule: rules,
-    showFlag: flag
+    showFlag: flag,
+    len:len
   }
 }

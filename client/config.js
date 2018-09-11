@@ -33,7 +33,8 @@ var config = {
 
     // 获取排行榜数据接口
     getRankUrl: `${host}/weapp/getRank`,
-    getId: `${host}/weapp/getId`
+    getId: `${host}/weapp/getId`,
+    getFlag: `${host}/weapp/getFlag`
   }
 };
 
